@@ -8,6 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.aliaslzr.warmind.ui.WarmindMainScreen
 import com.aliaslzr.warmind.ui.theme.WarmindTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,7 +23,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     tonalElevation = 5.dp,
                     color = MaterialTheme.colorScheme.background
-                ) {  }
+                ) {
+                    WarmindMainScreen()
+                }
             }
         }
     }
