@@ -1,4 +1,4 @@
-package com.aliaslzr.warmind.designsystem.component
+package com.aliaslzr.warmind.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
@@ -20,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.aliaslzr.warmind.ui.icon.WarmindIcons
 import com.aliaslzr.warmind.ui.theme.WarmindTheme
 
 /**
@@ -195,7 +194,7 @@ fun WarmindButtonContent(
 
 @ThemePreviews
 @Composable
-fun WarmidButtonPreview() {
+fun WarmindButtonPreview() {
     WarmindTheme {
         WarmindButton(onClick = {}, text = { Text(text = "Test button") })
     }
@@ -216,7 +215,7 @@ fun WarmindTextIconButtonPreview() {
         WarmindTextButton(
             onClick = {},
             text = { Text(text = "Test button") },
-            leadingIcon = { Icon(imageVector = Icons.Rounded.Add, contentDescription = null) })
+            leadingIcon = { Icon(imageVector = WarmindIcons.Plus, contentDescription = null) })
     }
 }
 
