@@ -1,4 +1,4 @@
-package com.aliaslzr.warmind.feature.profile.data.reposotory
+package com.aliaslzr.warmind.feature.profile.data.repository
 
 import com.aliaslzr.warmind.feature.profile.data.services.ProfileService
 import com.aliaslzr.warmind.feature.profile.domain.mapper.ProfileEntityMapper
