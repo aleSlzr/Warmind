@@ -1,4 +1,4 @@
-package com.aliaslzr.warmind.ui.navigation.weapons
+package com.aliaslzr.warmind.feature.weapons
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

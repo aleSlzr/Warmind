@@ -3,17 +3,22 @@ package com.aliaslzr.warmind
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.aliaslzr.warmind.feature.profile.ui.viewModel.ProfileViewModel
 import com.aliaslzr.warmind.ui.WarmindMainScreen
 import com.aliaslzr.warmind.ui.theme.WarmindTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    private val profileViewModel: ProfileViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -24,7 +29,7 @@ class MainActivity : ComponentActivity() {
                     tonalElevation = 5.dp,
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    WarmindMainScreen()
+                    WarmindMainScreen(profileViewModel)
                 }
             }
         }

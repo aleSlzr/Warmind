@@ -84,7 +84,7 @@ fun WarmindTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val context = LocalContext.current
+    //val context = LocalContext.current
     val colorScheme = when {
         /**
          * TODO - Feature: let the user select default themes (light/dark) or dynamic colors
