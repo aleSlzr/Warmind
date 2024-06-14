@@ -11,23 +11,20 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
-import com.aliaslzr.warmind.feature.profile.ui.viewModel.ProfileViewModel
 import com.aliaslzr.warmind.ui.components.WarmindBottomNavigation
 import com.aliaslzr.warmind.ui.components.WarmindDrawerSheet
 import com.aliaslzr.warmind.ui.components.WarmindTopAppBar
 import com.aliaslzr.warmind.ui.navigation.WarmindNavHost
 
-@Preview(showSystemUi = true)
 @Composable
-fun WarmindMainScreen(profileViewModel: ProfileViewModel) {
+fun WarmindMainScreen() {
     val navController = rememberNavController()
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
     ModalNavigationDrawer(
         drawerState = drawerState,
-        drawerContent = { WarmindDrawerSheet(profileViewModel) },
+        drawerContent = { WarmindDrawerSheet() },
         gesturesEnabled = true
     ) {
         Scaffold(

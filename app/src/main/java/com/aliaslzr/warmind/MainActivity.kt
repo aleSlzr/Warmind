@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
                     tonalElevation = 5.dp,
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    WarmindMainScreen(profileViewModel)
+                    WarmindMainScreen()
                 }
             }
         }

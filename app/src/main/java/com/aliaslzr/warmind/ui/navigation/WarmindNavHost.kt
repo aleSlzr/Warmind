@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.aliaslzr.warmind.feature.armor.ArmorScreen
+import com.aliaslzr.warmind.feature.profile.ui.ProfileScreen
 import com.aliaslzr.warmind.feature.weapons.WeaponsScreen
 
 @Composable
@@ -21,6 +22,9 @@ fun WarmindNavHost(
         }
         composable(WarmindRoutes.Armor.route) {
             ArmorScreen()
+        }
+        composable(WarmindRoutes.Profile.route) {
+            ProfileScreen()
         }
     }
 }

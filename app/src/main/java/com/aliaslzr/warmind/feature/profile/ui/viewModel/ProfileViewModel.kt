@@ -5,24 +5,27 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aliaslzr.warmind.feature.profile.domain.usecases.GetProfileInformationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val getProfileInformationUseCase: GetProfileInformationUseCase
+    getProfileInformationUseCase: GetProfileInformationUseCase
 ) : ViewModel() {
 
-    fun fetchUserProfile() {
-        viewModelScope.launch {
-            getProfileInformationUseCase.invoke()
-                .catch {
-                    Log.e("WarmindError", it.message.toString())
-                }
-                .collect { profile ->
-                    Log.d("WarmindSuccess", profile.errorStatus.toString())
-                }
-        }
-    }
+    val profileUiState: StateFlow<ProfileUiState> = getProfileInformationUseCase.invoke()
+        .map { profile ->
+            ProfileUiState.Success(profile.response)
+        }.onCompletion {
+            Log.i("WarmindLog", "ProfileViewModel: Done.")
+        }.stateIn(
+            scope = viewModelScope,
+            initialValue = ProfileUiState.Loading,
+            started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds)
+        )
 }

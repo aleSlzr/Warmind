@@ -60,6 +60,7 @@ dependencies {
 
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
@@ -72,7 +73,7 @@ dependencies {
 
     // Dagger Hilt
     implementation(libs.hilt.android)
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.hilt.navigation.compose)
     kapt(libs.hilt.android.compiler)
 
     testImplementation(libs.junit)

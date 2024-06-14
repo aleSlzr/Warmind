@@ -27,11 +27,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.aliaslzr.warmind.feature.profile.ui.viewModel.ProfileUiState
 import com.aliaslzr.warmind.feature.profile.ui.viewModel.ProfileViewModel
 import com.aliaslzr.warmind.ui.icon.WarmindIcons
 import com.aliaslzr.warmind.ui.models.WarmindBottomBarItems
@@ -128,7 +131,12 @@ private fun getTabSelected(currentDestination: NavDestination?, route: String): 
 }
 
 @Composable
-fun WarmindDrawerSheet(profileViewModel: ProfileViewModel) {
+fun WarmindDrawerSheet(
+    profileViewModel: ProfileViewModel = hiltViewModel()
+) {
+
+    val profileUiState by profileViewModel.profileUiState.collectAsStateWithLifecycle()
+
     ModalDrawerSheet {
         Text(
             text = "Options",
@@ -152,7 +160,18 @@ fun WarmindDrawerSheet(profileViewModel: ProfileViewModel) {
                         modifier = Modifier.size(32.dp),
                     )
                 },
-                label = { Text(text = "My Profile") },
+                label = {
+                    when(profileUiState) {
+                        ProfileUiState.Loading -> {
+                            Text(text = "My Profile")
+                        }
+                        is ProfileUiState.Success -> {
+                            Text(
+                                text = (profileUiState as ProfileUiState.Success).profile.bnetMembership?.displayName.orEmpty()
+                            )
+                        }
+                    }
+                },
                 selected = false,
                 onClick = {}
             )
@@ -167,7 +186,7 @@ fun WarmindDrawerSheet(profileViewModel: ProfileViewModel) {
                 },
                 label = { Text(text = "Sign Out") },
                 selected = false,
-                onClick = { profileViewModel.fetchUserProfile() }
+                onClick = {  }
             )
         }
     }
