@@ -132,14 +132,16 @@ private fun getTabSelected(currentDestination: NavDestination?, route: String): 
 
 @Composable
 fun WarmindDrawerSheet(
+    navController: NavHostController,
+    drawerState: DrawerState,
     profileViewModel: ProfileViewModel = hiltViewModel()
 ) {
-
     val profileUiState by profileViewModel.profileUiState.collectAsStateWithLifecycle()
+    val scope = rememberCoroutineScope()
 
     ModalDrawerSheet {
         Text(
-            text = "Options",
+            text = "Warmind",
             fontSize = 24.sp,
             fontWeight = FontWeight.Normal,
             modifier = Modifier
@@ -161,32 +163,42 @@ fun WarmindDrawerSheet(
                     )
                 },
                 label = {
-                    when(profileUiState) {
-                        ProfileUiState.Loading -> {
-                            Text(text = "My Profile")
-                        }
-                        is ProfileUiState.Success -> {
-                            Text(
-                                text = (profileUiState as ProfileUiState.Success).profile.bnetMembership?.displayName.orEmpty()
-                            )
-                        }
-                    }
+                    ProfileUserName(profileUiState)
                 },
                 selected = false,
-                onClick = {}
+                onClick = {
+                    onNavigateToScreen(navController, WarmindRoutes.Profile.route)
+                    scope.launch {
+                        drawerState.close()
+                    }
+                }
             )
             Spacer(modifier = Modifier.weight(1f))
             NavigationDrawerItem(
                 icon = {
                     Icon(
                         imageVector = WarmindIcons.LogOut,
-                        contentDescription = "My Profile",
+                        contentDescription = "Sign Out",
                         modifier = Modifier.size(32.dp),
                     )
                 },
                 label = { Text(text = "Sign Out") },
                 selected = false,
-                onClick = {  }
+                onClick = { /** TODO - implement sign out */ }
+            )
+        }
+    }
+}
+
+@Composable
+private fun ProfileUserName(profileUiState: ProfileUiState) {
+    when (profileUiState) {
+        ProfileUiState.Loading -> {
+            Text(text = "My Profile")
+        }
+        is ProfileUiState.Success -> {
+            Text(
+                text = profileUiState.profile.bnetMembership?.displayName.orEmpty()
             )
         }
     }

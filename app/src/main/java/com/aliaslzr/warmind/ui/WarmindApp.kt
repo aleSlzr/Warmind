@@ -24,7 +24,7 @@ fun WarmindMainScreen() {
 
     ModalNavigationDrawer(
         drawerState = drawerState,
-        drawerContent = { WarmindDrawerSheet() },
+        drawerContent = { WarmindDrawerSheet(navController, drawerState) },
         gesturesEnabled = true
     ) {
         Scaffold(
