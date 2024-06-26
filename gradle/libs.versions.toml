@@ -1,18 +1,19 @@
 [versions]
 agp = "8.5.0"
 kotlin = "1.9.0"
-coreKtx = "1.10.1"
+coreKtx = "1.13.1"
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.6.1"
-activityCompose = "1.7.0"
-composeBom = "2023.08.00"
+junitVersion = "1.2.0"
+espressoCore = "3.6.0"
+lifecycleRuntimeKtx = "2.8.2"
+activityCompose = "1.9.0"
+composeBom = "2024.06.00"
 dagger = "2.50"
 dagger-compose = "1.2.0"
 retrofit = "2.9.0"
 navigationCompose = "2.7.7"
 lifecycleRuntimeComposeAndroid = "2.8.2"
+coilVersion = "2.6.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -38,8 +39,13 @@ hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-com
 
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+
 material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
+
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coilVersion" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose" , version.ref = "coilVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

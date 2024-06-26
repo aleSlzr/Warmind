@@ -1,14 +1,15 @@
 package com.aliaslzr.warmind.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -34,11 +35,13 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import coil.compose.rememberAsyncImagePainter
 import com.aliaslzr.warmind.feature.profile.ui.viewModel.ProfileUiState
 import com.aliaslzr.warmind.feature.profile.ui.viewModel.ProfileViewModel
 import com.aliaslzr.warmind.ui.icon.WarmindIcons
 import com.aliaslzr.warmind.ui.models.WarmindBottomBarItems
 import com.aliaslzr.warmind.ui.navigation.WarmindRoutes
+import com.aliaslzr.warmind.utils.BUNGIE_BASE_URL
 import kotlinx.coroutines.launch
 
 
@@ -148,23 +151,16 @@ fun WarmindDrawerSheet(
                 .padding(16.dp)
                 .fillMaxWidth()
         )
-        Divider(modifier = Modifier.padding(start = 12.dp, end = 12.dp))
+        HorizontalDivider(modifier = Modifier.padding(start = 12.dp, end = 12.dp))
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(start = 16.dp, top = 4.dp, bottom = 4.dp)
         ) {
             NavigationDrawerItem(
-                icon = {
-                    Icon(
-                        imageVector = WarmindIcons.Person,
-                        contentDescription = "My Profile",
-                        modifier = Modifier.size(32.dp),
-                    )
-                },
-                label = {
-                    ProfileUserName(profileUiState)
-                },
+                modifier = Modifier.padding(top = 10.dp),
+                icon = { ProfileUserIcon(profileUiState) },
+                label = { ProfileUserName(profileUiState) },
                 selected = false,
                 onClick = {
                     onNavigateToScreen(navController, WarmindRoutes.Profile.route)
@@ -174,6 +170,7 @@ fun WarmindDrawerSheet(
                 }
             )
             Spacer(modifier = Modifier.weight(1f))
+            HorizontalDivider(modifier = Modifier.padding(start = 12.dp, end = 12.dp))
             NavigationDrawerItem(
                 icon = {
                     Icon(
@@ -191,14 +188,41 @@ fun WarmindDrawerSheet(
 }
 
 @Composable
+private fun ProfileUserIcon(profileUiState: ProfileUiState) {
+    when (profileUiState) {
+        is ProfileUiState.Loading -> {
+            Icon(
+                imageVector = WarmindIcons.Person,
+                contentDescription = "My Profile",
+                modifier = Modifier.size(32.dp),
+            )
+        }
+        is ProfileUiState.Success -> {
+            val painter = rememberAsyncImagePainter("${BUNGIE_BASE_URL}${profileUiState.profile.bnetMembership?.iconPath}")
+            Image(
+                painter = painter,
+                contentDescription = "Profile",
+                modifier = Modifier.size(56.dp)
+            )
+        }
+    }
+}
+
+@Composable
 private fun ProfileUserName(profileUiState: ProfileUiState) {
     when (profileUiState) {
         ProfileUiState.Loading -> {
-            Text(text = "My Profile")
+            Text(
+                text = "My Profile",
+                fontSize = 22.sp,
+                fontWeight = FontWeight.SemiBold,
+            )
         }
         is ProfileUiState.Success -> {
             Text(
-                text = profileUiState.profile.bnetMembership?.displayName.orEmpty()
+                text = profileUiState.profile.bnetMembership?.displayName.orEmpty(),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.SemiBold,
             )
         }
     }
