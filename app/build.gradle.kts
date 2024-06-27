@@ -72,6 +72,11 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
+    // Room
+    implementation(libs.room.runtime)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
+
     // Dagger Hilt
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation.compose)

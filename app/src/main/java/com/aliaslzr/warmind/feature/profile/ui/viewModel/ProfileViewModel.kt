@@ -18,7 +18,7 @@ class ProfileViewModel @Inject constructor(
     getProfileInformationUseCase: GetProfileInformationUseCase
 ) : ViewModel() {
 
-    val profileUiState: StateFlow<ProfileUiState> = getProfileInformationUseCase.invoke()
+    val profileUiState: StateFlow<ProfileUiState> = getProfileInformationUseCase()
         .map { profile ->
             ProfileUiState.Success(profile.response)
         }.onCompletion {

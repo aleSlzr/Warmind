@@ -14,6 +14,7 @@ retrofit = "2.9.0"
 navigationCompose = "2.7.7"
 lifecycleRuntimeComposeAndroid = "2.8.2"
 coilVersion = "2.6.0"
+roomVersion = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -46,6 +47,10 @@ androidx-navigation-compose = { group = "androidx.navigation", name = "navigatio
 
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coilVersion" }
 coil-compose = { group = "io.coil-kt", name = "coil-compose" , version.ref = "coilVersion" }
+
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomVersion" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "roomVersion" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
