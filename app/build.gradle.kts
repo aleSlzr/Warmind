@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.material.icons.extended)
+    implementation(libs.androidx.constraintlayout)
 
     // Retrofit
     implementation(libs.retrofit)

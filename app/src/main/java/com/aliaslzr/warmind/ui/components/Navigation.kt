@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -24,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -43,7 +45,6 @@ import com.aliaslzr.warmind.ui.models.WarmindBottomBarItems
 import com.aliaslzr.warmind.ui.navigation.WarmindRoutes
 import com.aliaslzr.warmind.utils.BUNGIE_BASE_URL
 import kotlinx.coroutines.launch
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -190,7 +191,7 @@ fun WarmindDrawerSheet(
 @Composable
 private fun ProfileUserIcon(profileUiState: ProfileUiState) {
     when (profileUiState) {
-        is ProfileUiState.Loading -> {
+        ProfileUiState.Loading -> {
             Icon(
                 imageVector = WarmindIcons.Person,
                 contentDescription = "My Profile",
@@ -201,8 +202,10 @@ private fun ProfileUserIcon(profileUiState: ProfileUiState) {
             val painter = rememberAsyncImagePainter("${BUNGIE_BASE_URL}${profileUiState.profile.bnetMembership?.iconPath}")
             Image(
                 painter = painter,
-                contentDescription = "Profile",
-                modifier = Modifier.size(56.dp)
+                contentDescription = profileUiState.profile.bnetMembership?.displayName,
+                modifier = Modifier
+                    .size(56.dp)
+                    .clip(CircleShape)
             )
         }
     }

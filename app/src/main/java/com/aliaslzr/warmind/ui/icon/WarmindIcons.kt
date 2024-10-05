@@ -44,4 +44,5 @@ object WarmindIcons {
     val Armor = R.drawable.helmet
     val Weapons = R.drawable.hand_cannon
     val LogOut = Icons.AutoMirrored.Rounded.Logout
+    val Ghost = R.drawable.ghost
 }
