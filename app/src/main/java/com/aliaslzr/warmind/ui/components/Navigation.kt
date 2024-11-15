@@ -52,10 +52,11 @@ fun WarmindTopAppBar(drawerState: DrawerState) {
     val scope = rememberCoroutineScope()
     TopAppBar(
         title = { Text(text = "Warmind") },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.primary
-        ),
+        colors =
+            TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                titleContentColor = MaterialTheme.colorScheme.primary,
+            ),
         navigationIcon = {
             IconButton(
                 onClick = {
@@ -64,11 +65,11 @@ fun WarmindTopAppBar(drawerState: DrawerState) {
                             if (isClosed) open() else close()
                         }
                     }
-                }
+                },
             ) {
                 Icon(imageVector = WarmindIcons.Menu, contentDescription = "Menu")
             }
-        }
+        },
     )
 }
 
@@ -77,21 +78,22 @@ fun WarmindBottomNavigation(navController: NavHostController) {
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.tertiaryContainer,
         contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
-        tonalElevation = 5.dp
+        tonalElevation = 5.dp,
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentDestination = navBackStackEntry?.destination
 
         BOTTOM_BAR_DESTINATIONS.forEach { item ->
             NavigationBarItem(
-                selected = getTabSelected(
-                    currentDestination = currentDestination,
-                    route = item.route
-                ),
+                selected =
+                    getTabSelected(
+                        currentDestination = currentDestination,
+                        route = item.route,
+                    ),
                 onClick = {
                     onNavigateToScreen(
                         navController = navController,
-                        route = item.route
+                        route = item.route,
                     )
                 },
                 icon = {
@@ -101,24 +103,28 @@ fun WarmindBottomNavigation(navController: NavHostController) {
                         modifier = Modifier.size(32.dp),
                     )
                 },
-                label = { Text(text = item.route) }
+                label = { Text(text = item.route) },
             )
         }
     }
 }
 
-val BOTTOM_BAR_DESTINATIONS = listOf(
-    WarmindBottomBarItems(
-        icon = WarmindIcons.Weapons,
-        route = WarmindRoutes.Weapons.route
-    ),
-    WarmindBottomBarItems(
-        icon = WarmindIcons.Armor,
-        route = WarmindRoutes.Armor.route
+val BOTTOM_BAR_DESTINATIONS =
+    listOf(
+        WarmindBottomBarItems(
+            icon = WarmindIcons.Weapons,
+            route = WarmindRoutes.Weapons.route,
+        ),
+        WarmindBottomBarItems(
+            icon = WarmindIcons.Armor,
+            route = WarmindRoutes.Armor.route,
+        ),
     )
-)
 
-private fun onNavigateToScreen(navController: NavHostController, route: String) {
+private fun onNavigateToScreen(
+    navController: NavHostController,
+    route: String,
+) {
     navController.navigate(route) {
         popUpTo(navController.graph.findStartDestination().id) {
             saveState = true
@@ -128,17 +134,19 @@ private fun onNavigateToScreen(navController: NavHostController, route: String) 
     }
 }
 
-private fun getTabSelected(currentDestination: NavDestination?, route: String): Boolean {
-    return currentDestination?.hierarchy?.any {
+private fun getTabSelected(
+    currentDestination: NavDestination?,
+    route: String,
+): Boolean =
+    currentDestination?.hierarchy?.any {
         it.route == route
     } == true
-}
 
 @Composable
 fun WarmindDrawerSheet(
     navController: NavHostController,
     drawerState: DrawerState,
-    profileViewModel: ProfileViewModel = hiltViewModel()
+    profileViewModel: ProfileViewModel = hiltViewModel(),
 ) {
     val profileUiState by profileViewModel.profileUiState.collectAsStateWithLifecycle()
     val scope = rememberCoroutineScope()
@@ -148,15 +156,17 @@ fun WarmindDrawerSheet(
             text = "Warmind",
             fontSize = 24.sp,
             fontWeight = FontWeight.Normal,
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
+            modifier =
+                Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
         )
         HorizontalDivider(modifier = Modifier.padding(start = 12.dp, end = 12.dp))
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(start = 16.dp, top = 4.dp, bottom = 4.dp)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(start = 16.dp, top = 4.dp, bottom = 4.dp),
         ) {
             NavigationDrawerItem(
                 modifier = Modifier.padding(top = 10.dp),
@@ -168,7 +178,7 @@ fun WarmindDrawerSheet(
                     scope.launch {
                         drawerState.close()
                     }
-                }
+                },
             )
             Spacer(modifier = Modifier.weight(1f))
             HorizontalDivider(modifier = Modifier.padding(start = 12.dp, end = 12.dp))
@@ -182,7 +192,9 @@ fun WarmindDrawerSheet(
                 },
                 label = { Text(text = "Sign Out") },
                 selected = false,
-                onClick = { /** TODO - implement sign out */ }
+                onClick = {
+                    /** TODO - implement sign out */
+                },
             )
         }
     }
@@ -199,13 +211,17 @@ private fun ProfileUserIcon(profileUiState: ProfileUiState) {
             )
         }
         is ProfileUiState.Success -> {
-            val painter = rememberAsyncImagePainter("${BUNGIE_BASE_URL}${profileUiState.profile.bnetMembership?.iconPath}")
+            val painter =
+                rememberAsyncImagePainter(
+                    "${BUNGIE_BASE_URL}${profileUiState.profile.bnetMembership?.iconPath}",
+                )
             Image(
                 painter = painter,
                 contentDescription = profileUiState.profile.bnetMembership?.displayName,
-                modifier = Modifier
-                    .size(56.dp)
-                    .clip(CircleShape)
+                modifier =
+                    Modifier
+                        .size(56.dp)
+                        .clip(CircleShape),
             )
         }
     }
@@ -223,7 +239,10 @@ private fun ProfileUserName(profileUiState: ProfileUiState) {
         }
         is ProfileUiState.Success -> {
             Text(
-                text = profileUiState.profile.bnetMembership?.displayName.orEmpty(),
+                text =
+                    profileUiState.profile.bnetMembership
+                        ?.displayName
+                        .orEmpty(),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.SemiBold,
             )

@@ -28,7 +28,7 @@ fun WarmindMainScreen() {
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = { WarmindDrawerSheet(navController, drawerState) },
-        gesturesEnabled = true
+        gesturesEnabled = true,
     ) {
         Scaffold(
             topBar = {
@@ -40,12 +40,13 @@ fun WarmindMainScreen() {
                 if (currentRoute != WarmindRoutes.Profile.route) {
                     WarmindBottomNavigation(navController)
                 }
-            }
+            },
         ) {
             Column(
-                modifier = Modifier
-                    .padding(it)
-                    .fillMaxSize(),
+                modifier =
+                    Modifier
+                        .padding(it)
+                        .fillMaxSize(),
             ) {
                 WarmindNavHost(navController = navController)
             }

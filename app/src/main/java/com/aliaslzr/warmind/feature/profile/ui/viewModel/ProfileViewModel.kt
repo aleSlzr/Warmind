@@ -14,18 +14,20 @@ import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(
-    getProfileInformationUseCase: GetProfileInformationUseCase
-) : ViewModel() {
-
-    val profileUiState: StateFlow<ProfileUiState> = getProfileInformationUseCase()
-        .map { profile ->
-            ProfileUiState.Success(profile.response)
-        }.onCompletion {
-            Log.i("WarmindLog", "ProfileViewModel: Done.")
-        }.stateIn(
-            scope = viewModelScope,
-            initialValue = ProfileUiState.Loading,
-            started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds)
-        )
-}
+class ProfileViewModel
+    @Inject
+    constructor(
+        getProfileInformationUseCase: GetProfileInformationUseCase,
+    ) : ViewModel() {
+        val profileUiState: StateFlow<ProfileUiState> =
+            getProfileInformationUseCase()
+                .map { profile ->
+                    ProfileUiState.Success(profile.response)
+                }.onCompletion {
+                    Log.i("WarmindLog", "ProfileViewModel: Done.")
+                }.stateIn(
+                    scope = viewModelScope,
+                    initialValue = ProfileUiState.Loading,
+                    started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
+                )
+    }
