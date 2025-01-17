@@ -32,7 +32,7 @@ import com.aliaslzr.warmind.ui.icon.WarmindIcons
 @Composable
 fun ProfileScreen() {
     Scaffold(
-        topBar = { ProfileTopBar() }
+        topBar = { ProfileTopBar() },
     ) {
         Column(
             modifier = Modifier
@@ -44,13 +44,13 @@ fun ProfileScreen() {
             WarmindTextDivider("About me")
             Text(
                 text = "Some description of the user",
-                fontStyle = FontStyle.Italic
+                fontStyle = FontStyle.Italic,
             )
             WarmindTextDivider("Destiny Character")
             WarmindCharacterBanner(
                 characterClass = "Hunter",
                 characterRace = "Human",
-                characterLightLevel = "1900"
+                characterLightLevel = "1900",
             )
         }
     }
@@ -63,7 +63,7 @@ private fun ProfileTopBar() {
         title = { ProfileTopBarTitle() },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.onTertiaryContainer,
-            titleContentColor = MaterialTheme.colorScheme.tertiaryContainer
+            titleContentColor = MaterialTheme.colorScheme.tertiaryContainer,
         ),
         navigationIcon = {
             IconButton(onClick = { /*TODO*/ }) {
@@ -71,10 +71,10 @@ private fun ProfileTopBar() {
                     modifier = Modifier.size(28.dp),
                     tint = Color.White,
                     imageVector = WarmindIcons.ArrowBack,
-                    contentDescription = "Back to main screen"
+                    contentDescription = "Back to main screen",
                 )
             }
-        }
+        },
     )
 }
 
@@ -82,19 +82,19 @@ private fun ProfileTopBar() {
 private fun ProfileTopBarTitle() {
     Box(
         modifier = Modifier.fillMaxWidth(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 text = "Profile Name#1234",
-                color = Color.White
+                color = Color.White,
             )
             Text(
                 text = "Some informative text",
-                color = Color.White, fontSize = 16.sp
+                color = Color.White, fontSize = 16.sp,
             )
         }
     }
